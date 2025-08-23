@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
 import { Button } from "@/components/ui/button"
+import IndustryDashboard from './IndustryDashboard'
+import Logistics from './Logistics'
+import Farmers from './Farmers'
+import Products from './Products'
+import Notifications from './Notifications'
 
 const sessions = [
   "Dashbaord",
+  "Farmers",
+  "Products",
+  "Notifications",
   "Logistics"
 ]
 
@@ -28,11 +36,13 @@ const Industry = () => {
             ))}
           </nav>
         </aside>
-        <main className="flex-1">
-          <div className="p-6">
-            <h2 className="text-2xl font-semibold">{selected}</h2>
-            {/* Content for the selected session can go here */}
-          </div>
+        <main className="flex-1 p-6">
+          <h2 className="text-2xl font-semibold mb-4">{selected}</h2>
+          {selected === 'Dashbaord' && <IndustryDashboard />}
+          {selected === 'Farmers' && <Farmers />}
+          {selected === 'Products' && <Products />}
+          {selected === 'Notifications' && <Notifications />}
+          {selected === 'Logistics' && <Logistics />}
         </main>
       </div>
     </div>
