@@ -59,11 +59,11 @@ const Signup = () => {
         localStorage.setItem('userId', userId)
       }
 
-      if (form.role === 'user') navigate('/user/profile')
-      else if (form.role === 'farmer') navigate('/farmer/profile')
-      else if (form.role === 'industries') navigate('/industry/profile')
-      else if (form.role === 'logistics') navigate('/logistic/profile')
-      else navigate('/profile')
+      if (form.role === 'user') navigate('/user')
+      else if (form.role === 'farmer') navigate('/farmer')
+      else if (form.role === 'industries') navigate('/industry')
+      else if (form.role === 'logistics') navigate('/logistic')
+      else navigate('/')
 
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed')
