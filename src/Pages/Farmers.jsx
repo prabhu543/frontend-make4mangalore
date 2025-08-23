@@ -1,26 +1,56 @@
-import React, { useState } from 'react'
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import React, { useState, useEffect } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import axios from 'axios'
 
 const Farmers = () => {
-  const [farmer, setFarmer] = useState("")
+  const [farmers, setFarmers] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSearch = () => {
-    // You can handle the search logic here
-    console.log("Searching for farmer:", farmer)
-  }
+  useEffect(() => {
+    const fetchFarmers = async () => {
+      setLoading(true)
+      setError("")
+      try {
+        const response = await axios.get('http://localhost:5000/api/farmer') // Adjust URL as needed
+        setFarmers(response.data)
+      } catch (err) {
+        setError("Failed to fetch farmers")
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchFarmers()
+  }, [])
 
   return (
-    <div>
-      <div className="flex gap-2 mb-4">
-        <Input
-          placeholder="Search by farmer name"
-          value={farmer}
-          onChange={e => setFarmer(e.target.value)}
-        />
-        <Button onClick={handleSearch}>Search</Button>
-      </div>
-    </div>
+    <Card className="max-w-4xl mx-auto mt-8 p-6">
+      <CardHeader>
+        <CardTitle>All Farmers</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {loading && <p>Loading farmers...</p>}
+        {error && <p className="text-red-600">{error}</p>}
+
+        {!loading && farmers.length === 0 && <p>No farmers found.</p>}
+
+        <div className="space-y-4">
+          {farmers.map(farmer => (
+            <Card key={farmer._id} className="p-4 shadow-md">
+              <CardHeader>
+                <CardTitle>{farmer.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p><strong>Email:</strong> {farmer.email}</p>
+                <p><strong>Phone:</strong> {farmer.phone}</p>
+                <p><strong>Region:</strong> {farmer.region}</p>
+                <p><strong>Fruits ID:</strong> {farmer.fruitsId}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 
