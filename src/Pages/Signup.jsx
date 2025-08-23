@@ -13,12 +13,14 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "",
-    address: "",
     phone: "",
+    address: "",
     region: "",
     fruitsId: "",
-    adharNumber: ""
+    adharNumber: "",
+    industryDescription: "",
+    photo: "",
+    role: ""
   })
   const [error, setError] = useState("")
   const navigate = useNavigate()
@@ -41,23 +43,10 @@ const Signup = () => {
     }
 
     try {
-      // Send all the extra details to backend
-      const response = await axios.post('http://localhost:5000/api/farmer/signup', {
-        name: form.name,
-        email: form.email,
-        password: form.password,
-        role: form.role,
-        address: form.address,
-        phone: form.phone,
-        region: form.region,
-        fruitsId: form.fruitsId,
-        adharNumber: form.adharNumber
-      })
+      const response = await axios.post('http://localhost:5000/api/signup', form)
 
       const userId = response.data._id
-      if (userId) {
-        localStorage.setItem('userId', userId)
-      }
+      if (userId) localStorage.setItem('userId', userId)
 
       if (form.role === 'user') navigate('/user')
       else if (form.role === 'farmer') navigate('/farmer')
@@ -78,56 +67,88 @@ const Signup = () => {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-5">
+
             <div>
               <Label htmlFor="name">Name</Label>
-              <Input id="name" name="name" type="text" placeholder="Name" value={form.name} onChange={handleChange} required />
+              <Input required id="name" name="name" type="text" placeholder="Name" value={form.name} onChange={handleChange} />
             </div>
 
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} required />
-            </div>
-
-            <div>
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
-            </div>
-
-            <div>
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" value={form.confirmPassword} onChange={handleChange} required />
-            </div>
-
-            <div>
-              <Label htmlFor="address">Address</Label>
-              <Input id="address" name="address" type="text" placeholder="Address" value={form.address} onChange={handleChange} required />
+              <Input required id="email" name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} />
             </div>
 
             <div>
               <Label htmlFor="phone">Phone Number</Label>
-              <Input id="phone" name="phone" type="tel" placeholder="Phone Number" value={form.phone} onChange={handleChange} pattern="[0-9]{10}" required />
+              <Input required id="phone" name="phone" type="tel" placeholder="10-digit Phone Number" pattern="[0-9]{10}" value={form.phone} onChange={handleChange} />
             </div>
 
             <div>
-              <Label htmlFor="region">Region</Label>
-              <Input id="region" name="region" type="text" placeholder="Region" value={form.region} onChange={handleChange} required />
+              <Label htmlFor="password">Password</Label>
+              <Input required id="password" name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} />
             </div>
 
             <div>
-              <Label htmlFor="fruitsId">Fruits ID</Label>
-              <Input id="fruitsId" name="fruitsId" type="text" placeholder="Fruits ID" value={form.fruitsId} onChange={handleChange} required />
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Input required id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" value={form.confirmPassword} onChange={handleChange} />
             </div>
 
-            <div>
-              <Label htmlFor="adharNumber">Aadhar Number</Label>
-              <Input id="adharNumber" name="adharNumber" type="text" placeholder="Aadhar Number" value={form.adharNumber} onChange={handleChange} required />
-            </div>
+            {/* Role specific fields */}
 
-            {error && <div className="text-red-600 text-sm">{error}</div>}
+            {form.role === 'farmer' && (
+              <>
+                <div>
+                  <Label htmlFor="address">Address</Label>
+                  <Input required id="address" name="address" type="text" placeholder="Address" value={form.address} onChange={handleChange} />
+                </div>
+                <div>
+                  <Label htmlFor="region">Region</Label>
+                  <Input required id="region" name="region" type="text" placeholder="Region" value={form.region} onChange={handleChange} />
+                </div>
+                <div>
+                  <Label htmlFor="fruitsId">Fruits ID</Label>
+                  <Input required id="fruitsId" name="fruitsId" type="text" placeholder="Fruits ID" value={form.fruitsId} onChange={handleChange} />
+                </div>
+                <div>
+                  <Label htmlFor="adharNumber">Aadhar Number</Label>
+                  <Input required id="adharNumber" name="adharNumber" type="text" placeholder="Aadhar Number" value={form.adharNumber} onChange={handleChange} />
+                </div>
+              </>
+            )}
+
+            {form.role === 'industries' && (
+              <>
+                <div>
+                  <Label htmlFor="industryDescription">Industry Description</Label>
+                  <Input required id="industryDescription" name="industryDescription" type="text" placeholder="Industry Description" value={form.industryDescription} onChange={handleChange} />
+                </div>
+                <div>
+                  <Label htmlFor="photo">Photo URL</Label>
+                  <Input id="photo" name="photo" type="url" placeholder="Photo URL" value={form.photo} onChange={handleChange} />
+                </div>
+              </>
+            )}
+
+            {form.role === 'logistics' && (
+              <>
+                <div>
+                  <Label htmlFor="adharNumber">Aadhar Number</Label>
+                  <Input required id="adharNumber" name="adharNumber" type="text" placeholder="Aadhar Number" value={form.adharNumber} onChange={handleChange} />
+                </div>
+                <div>
+                  <Label htmlFor="region">Region</Label>
+                  <Input required id="region" name="region" type="text" placeholder="Region" value={form.region} onChange={handleChange} />
+                </div>
+                <div>
+                  <Label htmlFor="photo">Photo URL</Label>
+                  <Input id="photo" name="photo" type="url" placeholder="Photo URL" value={form.photo} onChange={handleChange} />
+                </div>
+              </>
+            )}
 
             <div>
               <Label htmlFor="role">Role</Label>
-              <Select onValueChange={handleRoleChange} value={form.role} required>
+              <Select required onValueChange={handleRoleChange} value={form.role}>
                 <SelectTrigger id="role" className="w-full">
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>
@@ -140,9 +161,10 @@ const Signup = () => {
               </Select>
             </div>
 
+            {error && <div className="text-red-600 text-sm">{error}</div>}
+
             <Button type="submit" className="w-full">Signup</Button>
           </form>
-
           <div className="mt-4 text-center">
             <span>Have an account? </span>
             <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
