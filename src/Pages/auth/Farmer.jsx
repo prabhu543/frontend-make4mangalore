@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import Navbar from './Navbar'
+import Navbar from '../Navbar'
 import { Button } from "@/components/ui/button"
-import IndustryDashboard from './IndustryDashboard'
-import Logistics from './Logistics'
-import Farmers from './Farmers'
-import Products from './Products'
-import Notifications from './Notifications'
-import FarmerDashboard from './FarmerDashboard'
-import Industries from './Industries'
+import IndustryDashboard from '../IndustryDashboard'
+import Logistics from '../Logistics'
+import Farmers from '../Farmers'
+import Products from '../Products'
+import Notifications from '../Notifications'
+import FarmerDashboard from '../FarmerDashboard'
+import Industries from '../Industries'
 
 const sessions = [
   "Dashbaord",
@@ -41,7 +41,7 @@ const Farmer = () => {
         <main className="flex-1 p-6">
           <h2 className="text-2xl font-semibold mb-4">{selected}</h2>
           {selected === 'Dashbaord' && <FarmerDashboard />}
-          {selected === 'Farmers' && <Industries />}
+          {selected === 'Industries' && <Industries />}
           {selected === 'Products' && <Products />}
           {selected === 'Notifications' && <Notifications />}
           {selected === 'Logistics' && <Logistics />}
