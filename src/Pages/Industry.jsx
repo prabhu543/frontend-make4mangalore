@@ -1,8 +1,9 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 const Industry = () => {
   return (
-    <div>Industry</div>
+    <div><Navbar></Navbar></div>
   )
 }
 
