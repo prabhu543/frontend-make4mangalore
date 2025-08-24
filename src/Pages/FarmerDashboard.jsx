@@ -124,7 +124,7 @@ const FarmerDashboard = () => {
             </CardHeader>
             <CardContent>
               <p>Quantity: {prod.quantity}</p>
-              <p>Price: ${prod.price}</p>
+              <p>Price: {prod.price} rupees</p>
             </CardContent>
             <CardFooter>
               <Button

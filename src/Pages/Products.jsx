@@ -91,8 +91,8 @@ const Products = () => {
               <CardContent>
                 <p><strong>Description:</strong> {prod.description}</p>
                 <p><strong>Region:</strong> {prod.region}</p>
-                <p><strong>Quantity:</strong> {prod.quantity}</p>
-                <p><strong>Price:</strong> ${prod.price}</p>
+                <p><strong>Quantity:</strong> {prod.quantity} kg</p>
+                <p><strong>Price:</strong> {prod.price} rupees</p>
               </CardContent>
               <CardFooter className={'flex justify-end gap-3'}>
                 <Button
