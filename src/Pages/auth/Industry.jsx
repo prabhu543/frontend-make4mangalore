@@ -6,13 +6,15 @@ import Farmers from '../Farmers'
 import Products from '../Products'
 import Notifications from '../Notifications'
 import Navbar from '../Navbar'
+import Industries from '../Industries'
 
 const sessions = [
   "Dashbaord",
   "Farmers",
   "Products",
+  "Logistics",
+  "Industries",
   "Notifications",
-  "Logistics"
 ]
 
 const Industry = () => {
@@ -41,8 +43,9 @@ const Industry = () => {
           {selected === 'Dashbaord' && <IndustryDashboard />}
           {selected === 'Farmers' && <Farmers />}
           {selected === 'Products' && <Products />}
-          {selected === 'Notifications' && <Notifications />}
           {selected === 'Logistics' && <Logistics />}
+          {selected === 'Industries' && <Industries />}
+          {selected === 'Notifications' && <Notifications />}
         </main>
       </div>
     </div>

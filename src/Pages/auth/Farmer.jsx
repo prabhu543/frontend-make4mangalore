@@ -13,8 +13,9 @@ const sessions = [
   "Dashbaord",
   "Industries",
   "Products",
+  "Logistics",
+  "Farmers",
   "Notifications",
-  "Logistics"
 ]
 
 const Farmer = () => {
@@ -45,6 +46,7 @@ const Farmer = () => {
           {selected === 'Products' && <Products />}
           {selected === 'Notifications' && <Notifications />}
           {selected === 'Logistics' && <Logistics />}
+          {selected === 'Farmers' && <Farmers />}
         </main>
       </div>
     </div>

@@ -10,6 +10,30 @@ import {
   DialogClose,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+
+const staticFarmers = [
+  {
+    _id: "f1",
+    name: "Ravi Kumar",
+    products: [
+      {
+        _id: "p1",
+        description: "Dragon fruits",
+        quantity: 100,
+        price: 50,
+        img: "https://plus.unsplash.com/premium_photo-1723291697706-2755e4244167?q=80&w=687&auto=format&fit=crop"
+      },
+      {
+        _id: "p2",
+        description: "Papaya",
+        quantity: 150,
+        price: 75,
+        img: "https://plus.unsplash.com/premium_photo-1723245803720-7c54f4a5074c?q=80&w=1470&auto=format&fit=crop"
+      }
+    ]
+  }
+]
 
 const FarmerDashboard = () => {
   const [open, setOpen] = useState(false)
@@ -30,11 +54,12 @@ const FarmerDashboard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // You can handle file upload and form submission here
     console.log("Submitted:", form)
     setForm({ cropFile: null, cropName: "", quantity: "" })
     setOpen(false)
   }
+
+  const raviKumar = staticFarmers.find(farmer => farmer.name === "Ravi Kumar")
 
   return (
     <div>
@@ -74,14 +99,43 @@ const FarmerDashboard = () => {
               <DialogFooter>
                 <Button type="submit">Submit</Button>
                 <DialogClose asChild>
-                  <Button type="button" variant="secondary">Cancel</Button>
+                  <Button type="button" variant="secondary">
+                    Cancel
+                  </Button>
                 </DialogClose>
               </DialogFooter>
             </form>
           </DialogContent>
         </Dialog>
       </div>
-      {/* Add more dashboard content here */}
+
+      {/* Ravi Kumar's listed products */}
+      <h2 className="text-2xl font-semibold mb-6">Listed Products</h2>
+      <div className="max-w-4xl mx-auto space-y-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {raviKumar.products.map(prod => (
+          <Card key={prod._id} className="p-4 shadow-md flex flex-col items-center">
+            <img
+              src={prod.img}
+              alt={prod.description}
+              className="rounded mb-4 w-24 h-24 object-cover"
+            />
+            <CardHeader>
+              <CardTitle>{prod.description}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Quantity: {prod.quantity}</p>
+              <p>Price: ${prod.price}</p>
+            </CardContent>
+            <CardFooter>
+              <Button
+                                                variant="default"
+                                                >
+                                                  update details
+                                              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
     </div>
   )
 }
